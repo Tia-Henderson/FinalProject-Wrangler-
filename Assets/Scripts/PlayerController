@@ -1,0 +1,40 @@
+// This script goes on the player.
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    // private variables
+    private float speed = 15.0f;
+    private float turnSpeed = 100.0f;
+    private float horizontalInput;
+    private float forwardInput;
+    
+    Animator anim;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+      // calls the animator
+        anim = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void LateUpdate()
+    {
+        // player input
+        horizontalInput = Input.GetAxis("Horizontal");
+        forwardInput = Input.GetAxis("Vertical");
+        
+        //Sets the forward animation with vertical input
+        anim.SetFloat("Speed",forwardInput);
+        
+        // we move the character forward
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+        // we move the character
+        transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+        
+    }
+}
